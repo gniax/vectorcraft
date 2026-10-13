@@ -10,6 +10,13 @@
 
 <h1 align="center">VectorCraft</h1>
 
+> [!NOTE]
+> **This is the iPad fork of VectorCraft**, maintained by [@gniax](https://github.com/gniax). It adds
+> Apple Pencil and touch support and an installable, fully offline iPad app. Everything else is
+> [storytold/vectorcraft](https://github.com/storytold/vectorcraft) by the ArtCraft team; all credit for
+> the app goes to them. See [iPad and Apple Pencil](#ipad-and-apple-pencil) · [Try the web demo](https://gniax.github.io/vectorcraft/).
+
+
 <p align="center">
   <b>Vector illustration; an open-source, clean-room reimplementation of Adobe Illustrator, rebuilt in pure Rust.</b>
 </p>
@@ -246,6 +253,41 @@ Agent and contributor rules (clean-room, the asset policy, no panics in shipped 
 [`AGENTS.md`](AGENTS.md); [`docs/development.md`](docs/development.md#robustness-vectorcraft-never-crashes)
 explains how VectorCraft avoids crashing, and [`docs/releasing.md`](docs/releasing.md) how releases are built,
 signed and published. Every bundled asset is listed with its licence in [`ASSETS.md`](ASSETS.md).
+
+## iPad and Apple Pencil
+
+This fork runs VectorCraft on iPad as an app you install yourself: the WebAssembly build of the
+same Rust code, bundled in a small native app (`packaging/ios`) and run **fully offline** in a
+full-screen web view. Port maintained by [@gniax](https://github.com/gniax).
+
+**What it adds**
+
+| | |
+|---|---|
+| Apple Pencil | Draws with pressure; hover (iPad Pro) moves the pointer without drawing; holding the pen still opens the context menu (a right-click) |
+| Palm rejection | Once a pencil has been used, fingers never draw: a palm resting on the screen does nothing, and a pencil landing cancels fingers already down |
+| Fingers | Pinch to zoom, two-finger pan, two-finger tap undoes, three-finger tap redoes; one finger taps menus and panels |
+| Pencil double tap / squeeze | Follows the iPad's setting: switch to the Eraser and back, switch to the previous tool, or show the Color panel |
+| Files | Open from Files / iCloud Drive with the iOS picker; Save and Export go to the Files picker, so you choose where |
+| Keyboard | Magic Keyboard and Smart Keyboard shortcuts work as on the desktop |
+| App | Full screen, no Safari bars, no page zoom or bounce, safe areas respected, portrait and landscape |
+
+The desktop interface is kept as it is (it is built for a precise pointer, which the Pencil is).
+Pen tilt is not used yet: the brush engine records pressure only.
+
+**Install on your iPad** (needs a Mac with Xcode 16 or later; no Rust needed):
+
+1. `git clone https://github.com/gniax/vectorcraft.git && cd vectorcraft && git checkout ipad`
+2. `packaging/ios/fetch-web.sh` downloads the web build CI made for the app.
+3. Open `packaging/ios/VectorCraft.xcodeproj`, pick your team under *Signing & Capabilities*, plug in
+   the iPad and press Run.
+
+Step-by-step guide, including the free Apple ID route and its 7-day limit:
+[`packaging/ios/README.md`](packaging/ios/README.md).
+
+**Try it without installing:** <https://gniax.github.io/vectorcraft/> runs the same build in Safari
+(or any browser with WebAssembly). In Safari on iPad, *Share › Add to Home Screen* gives it a
+full-screen icon, but it then needs a connection to start; the app is the offline way.
 
 ## Downloads
 
