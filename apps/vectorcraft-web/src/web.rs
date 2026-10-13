@@ -127,7 +127,7 @@ async fn run(host: Host, canvas: web_sys::HtmlCanvasElement, moving: Option<Movi
                     }
                     None => VectorcraftApp::new(Session::new(), services),
                 };
-                Ok(Box::new(WebShell { app: Some(app), host, canvas: page, loss }))
+                Ok(Box::new(WebShell { app: Some(app), host, canvas: page, loss, tools: Default::default() }))
             }),
         )
         .await;
@@ -327,6 +327,8 @@ struct WebShell {
     host: Host,
     canvas: web_sys::HtmlCanvasElement,
     loss: GraphicsLoss,
+    /// The tools an Apple Pencil double tap switches between.
+    tools: crate::pencil::ToolSwitch,
 }
 
 impl WebShell {
@@ -385,6 +387,17 @@ impl eframe::App for WebShell {
                     }
                 });
             }
+        }
+        self.tools.follow(app.session.tool_id());
+        for tap in self.host.pointers.borrow_mut().take_taps() {
+            match self.tools.target(tap) {
+                Some(tool) => app.select_tool(tool),
+                None if tap == crate::pencil::PencilTap::Colors => {
+                    vectorcraft_ui_egui::menus::invoke(app, "window.panel", serde_json::json!({"panel": "color"}));
+                }
+                None => {}
+            }
+            self.tools.follow(app.session.tool_id());
         }
         app.logic(ctx);
     }

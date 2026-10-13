@@ -12,6 +12,10 @@
 //!   already down (a palm resting first).
 //!
 //! Mouse and trackpad events (a Magic Keyboard) are left to eframe.
+//!
+//! The iPad app (`packaging/ios`) reports an Apple Pencil double tap (or squeeze) as a
+//! `vectorcraft-pencil-tap` event on the window whose `detail` is the action the user chose in the
+//! iPad's settings: `switchEraser`, `switchPrevious` or `showColorPalette` ([`PencilTap`]).
 
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -36,6 +40,59 @@ pub struct Pointers {
     fingers: Vec<i32>,
     /// The contact driving egui's pointer.
     primary: Option<i32>,
+    /// Pencil double taps not yet handled.
+    taps: Vec<PencilTap>,
+}
+
+/// What an Apple Pencil double tap asks for (the iPad's Settings › Apple Pencil).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum PencilTap {
+    /// Switch between the current tool and the Eraser.
+    Eraser,
+    /// Switch between the current tool and the one used before it.
+    Previous,
+    /// Show the colours.
+    Colors,
+}
+
+impl PencilTap {
+    fn from_action(action: &str) -> Option<Self> {
+        match action {
+            "switchEraser" => Some(Self::Eraser),
+            "switchPrevious" => Some(Self::Previous),
+            "showColorPalette" => Some(Self::Colors),
+            _ => None,
+        }
+    }
+}
+
+/// The tools a Pencil double tap switches between: the current one and the one before.
+#[derive(Default)]
+pub struct ToolSwitch {
+    current: &'static str,
+    previous: &'static str,
+}
+
+impl ToolSwitch {
+    /// Follow the app's tool (each frame).
+    pub fn follow(&mut self, tool: &'static str) {
+        if tool != self.current {
+            if !self.current.is_empty() {
+                self.previous = self.current;
+            }
+            self.current = tool;
+        }
+    }
+
+    /// The tool to select for `tap`, if it switches tools.
+    pub fn target(&self, tap: PencilTap) -> Option<&'static str> {
+        match tap {
+            PencilTap::Eraser if self.current == "eraser" => Some(self.previous).filter(|p| !p.is_empty()),
+            PencilTap::Eraser => Some("eraser"),
+            PencilTap::Previous => Some(self.previous).filter(|p| !p.is_empty()),
+            PencilTap::Colors => None,
+        }
+    }
 }
 
 pub type SharedPointers = Rc<RefCell<Pointers>>;
@@ -44,6 +101,11 @@ impl Pointers {
     /// The events since the last frame, for the frame's raw input.
     pub fn take(&mut self) -> Vec<Event> {
         std::mem::take(&mut self.events)
+    }
+
+    /// The Pencil double taps since the last frame.
+    pub fn take_taps(&mut self) -> Vec<PencilTap> {
+        std::mem::take(&mut self.taps)
     }
 
     fn touch(&mut self, device: TouchDeviceId, id: i32, phase: TouchPhase, pos: Pos2, force: Option<f32>) {
@@ -226,5 +288,12 @@ pub fn install(runner: &eframe::WebRunner, canvas: &web_sys::HtmlCanvasElement, 
             }
         })?;
     }
+    let taps = pointers.clone();
+    runner.add_event_listener(&window, "vectorcraft-pencil-tap", move |e: web_sys::CustomEvent, runner| {
+        if let Some(tap) = e.detail().as_string().as_deref().and_then(PencilTap::from_action) {
+            taps.borrow_mut().taps.push(tap);
+            runner.egui_ctx().request_repaint();
+        }
+    })?;
     Ok(())
 }
