@@ -1,4 +1,4 @@
-# iPad port (fork gniax/vectorcraft): build the web app (WebAssembly), publish it for the iPad app
+# iPad port (fork gniax/vectorcraft-ipad): build the web app (WebAssembly), publish it for the iPad app
 # (release `ipad-web-latest`, fetched by packaging/ios/fetch-web.sh) and as the public demo on
 # GitHub Pages, then check that the Xcode project builds.
 name: iPad

@@ -20,9 +20,8 @@ cable. No Rust, no Homebrew.
 1. **Get the code and the web build.** In Terminal:
 
    ```sh
-   git clone https://github.com/gniax/vectorcraft.git
-   cd vectorcraft
-   git checkout ipad
+   git clone https://github.com/gniax/vectorcraft-ipad.git
+   cd vectorcraft-ipad
    packaging/ios/fetch-web.sh
    ```
 
@@ -83,5 +82,5 @@ then Run again from Xcode.
   (needs `rustup target add wasm32-unknown-unknown` and [trunk](https://trunkrs.dev)).
 - Debug builds let Safari's Web Inspector attach (Safari › Develop › your iPad).
 - CI (`.github/workflows/ipad.yml`) builds the web app, publishes it for `fetch-web.sh` (release
-  `ipad-web-latest`) and to <https://gniax.github.io/vectorcraft/>, and builds this project for the
+  `ipad-web-latest`) and to <https://gniax.github.io/vectorcraft-ipad/>, and builds this project for the
   simulator.

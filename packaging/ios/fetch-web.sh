@@ -6,7 +6,7 @@ set -eu
 here=$(cd "$(dirname "$0")" && pwd)
 root=$(cd "$here/../.." && pwd)
 dest="$here/web"
-url="https://github.com/gniax/vectorcraft/releases/download/ipad-web-latest/vectorcraft-web.zip"
+url="https://github.com/gniax/vectorcraft-ipad/releases/download/ipad-web-latest/vectorcraft-web.zip"
 
 if [ "${1:-}" = "--build" ]; then
   (cd "$root/apps/vectorcraft-web" && trunk build --release)

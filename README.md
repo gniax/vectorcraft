@@ -14,7 +14,7 @@
 > **This is the iPad fork of VectorCraft**, maintained by [@gniax](https://github.com/gniax). It adds
 > Apple Pencil and touch support and an installable, fully offline iPad app. Everything else is
 > [storytold/vectorcraft](https://github.com/storytold/vectorcraft) by the ArtCraft team; all credit for
-> the app goes to them. See [iPad and Apple Pencil](#ipad-and-apple-pencil) · [Try the web demo](https://gniax.github.io/vectorcraft/).
+> the app goes to them. See [iPad and Apple Pencil](#ipad-and-apple-pencil) · [Try the web demo](https://gniax.github.io/vectorcraft-ipad/).
 
 
 <p align="center">
@@ -283,7 +283,7 @@ Pen tilt is not used yet: the brush engine records pressure only.
 
 **Install on your iPad** (needs a Mac with Xcode 16 or later; no Rust needed):
 
-1. `git clone https://github.com/gniax/vectorcraft.git && cd vectorcraft && git checkout ipad`
+1. `git clone https://github.com/gniax/vectorcraft-ipad.git && cd vectorcraft-ipad`
 2. `packaging/ios/fetch-web.sh` downloads the web build CI made for the app.
 3. Open `packaging/ios/VectorCraft.xcodeproj`, pick your team under *Signing & Capabilities*, plug in
    the iPad and press Run.
@@ -291,7 +291,7 @@ Pen tilt is not used yet: the brush engine records pressure only.
 Step-by-step guide, including the free Apple ID route and its 7-day limit:
 [`packaging/ios/README.md`](packaging/ios/README.md).
 
-**Try it without installing:** <https://gniax.github.io/vectorcraft/> runs the same build in Safari
+**Try it without installing:** <https://gniax.github.io/vectorcraft-ipad/> runs the same build in Safari
 (or any browser with WebAssembly). In Safari on iPad, *Share › Add to Home Screen* gives it a
 full-screen icon, but it then needs a connection to start; the app is the offline way.
 
