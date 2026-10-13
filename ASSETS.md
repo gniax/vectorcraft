@@ -319,6 +319,8 @@ Generated-in-code art is original and has no file to list. This covers the defau
 | `docs/images/dusk-poster.png` | VectorCraft contributors | Rendered by VectorCraft from `examples/dusk-poster.vectorcraft` | MIT OR Apache-2.0 |  |
 | `examples/dusk-poster.vectorcraft` | VectorCraft contributors | Original artwork built through the VectorCraft command API | MIT OR Apache-2.0 |  |
 | `examples/dusk-poster.svg` | VectorCraft contributors | SVG export of the above | MIT OR Apache-2.0 |  |
+| `docs/images/ipad/pencil-long-press-menu.png` | gniax (VectorCraft contributor) | Screenshot of VectorCraft itself in an emulated iPad (landscape): the context menu a held Apple Pencil opens | MIT OR Apache-2.0 |  |
+| `docs/images/ipad/pencil-stroke.png` | gniax (VectorCraft contributor) | Screenshot of VectorCraft itself in an emulated iPad (landscape): a Paintbrush stroke drawn with a pen | MIT OR Apache-2.0 |  |
 | `docs/images/shot-1-neon.png` | VectorCraft contributors | Screenshot of VectorCraft itself (VectorCraft/Lucide UI icons only), editing `examples/neon-drive.vectorcraft` | MIT OR Apache-2.0 |  |
 | `docs/images/shot-2-ribbons.png` | VectorCraft contributors | Screenshot of VectorCraft itself, editing `examples/ribbons.vectorcraft` | MIT OR Apache-2.0 |  |
 | `docs/images/shot-3-sheet.png` | VectorCraft contributors | Screenshot of VectorCraft itself, editing `examples/feature-sheet.vectorcraft` | MIT OR Apache-2.0 |  |

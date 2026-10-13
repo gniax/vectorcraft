@@ -272,6 +272,12 @@ full-screen web view. Port maintained by [@gniax](https://github.com/gniax).
 | Keyboard | Magic Keyboard and Smart Keyboard shortcuts work as on the desktop |
 | App | Full screen, no Safari bars, no page zoom or bounce, safe areas respected, portrait and landscape |
 
+<p align="center">
+  <img alt="A Paintbrush stroke drawn with the pen, iPad landscape" src="docs/images/ipad/pencil-stroke.png" width="49%">
+  <img alt="Holding the pen still opens the context menu" src="docs/images/ipad/pencil-long-press-menu.png" width="49%">
+</p>
+<p align="center"><sub>Emulated iPad (1366×1024, pen and touch events); left: a pen stroke, right: the pen held still opens the context menu.</sub></p>
+
 The desktop interface is kept as it is (it is built for a precise pointer, which the Pencil is).
 Pen tilt is not used yet: the brush engine records pressure only.
 
