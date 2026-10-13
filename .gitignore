@@ -7,3 +7,7 @@ plan/
 .DS_Store
 # A craft-fonts checkout for CRAFT_FONTS_DIR (CI and release workflows check it out here)
 /craft-fonts
+# iPad app: the bundled web build (packaging/ios/fetch-web.sh) and Xcode output
+/packaging/ios/web
+/packaging/ios/build
+xcuserdata/
